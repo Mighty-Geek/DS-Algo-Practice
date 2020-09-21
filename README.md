@@ -1,2 +1,2 @@
 ## Algorithm_practice
-Here I practice different algorithms in **C++**
+Here I practice data structures and algorithms in **C++**
