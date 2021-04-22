@@ -1,37 +1,43 @@
-#include<iostream>
-#include<vector>
-#include<algorithm>
+#include <iostream>
+#include <vector>
+#include <algorithm>
 using namespace std;
 
-/*
-    int findMedian(vector<int> arr)
+int findMedian(vector<int> arr)
+{
+    int n = arr.size();
+    sort(arr.begin(), arr.end());
+    return arr[n / 2];
+}
+
+int median(vector<vector<int>> &matrix, int r, int c)
+{
+    vector<int> arr;
+    for (int i = 0; i < r; i++)
+    {
+        for (int j = 0; j < c; j++)
         {
-            int n = arr.size();
-            sort(arr.begin(), arr.end());
-            return arr[n/2];
+            arr.push_back(matrix[i][j]);
         }
-
-    int median(vector<vector<int> > &matrix, int r, int c){
-        vector<int> arr;
-        for(int i=0; i<r; i++){
-            for(int j=0; j<c; j++){
-                arr.push_back(matrix[i][j]);
-            }
-        }
-        int result = findMedian(arr);
-        return result;
     }
+    int result = findMedian(arr);
+    return result;
+}
 
-int main(){
+int main()
+{
     int t;
     cin >> t;
-    while(t--){
+    while (t--)
+    {
         int r, c;
         cin >> r >> c;
-        vector<vector<int> > arr(r);
-        for(int i=0; i<r; i++){
+        vector<vector<int>> arr(r);
+        for (int i = 0; i < r; i++)
+        {
             arr[i].assign(c, 0);
-            for(int j=0; j<c; j++){
+            for (int j = 0; j < c; j++)
+            {
                 cin >> arr[i][j];
             }
         }
@@ -39,12 +45,12 @@ int main(){
         cout << result;
     }
     cout << endl;
-return 0;
+    return 0;
 }
-*/
 
 // approach 2: Binary search
 
+/*
 int binaryMedian(vector<vector<int> >m, int r, int c){
     int min_m = INT_MAX, max_m = INT_MIN;
     for(int i=0; i<r; i++){
@@ -89,8 +95,4 @@ int main(){
 return 0;
 }
 
-
-
-
-
-
+*/
