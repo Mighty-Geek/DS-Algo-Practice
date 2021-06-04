@@ -52,7 +52,7 @@ string solution(string s)
     while (flag)
     {
         bool f1 = false, f2 = false;
-        while (i < l)
+        while (i < l - 1)
         {
             // acquire
             f1 = true;
@@ -84,30 +84,29 @@ string solution(string s)
         if (f1 == false && f2 == false)
             break;
     }
-    cout << "length : " << ans;
+    cout << "length : " << ans << endl;
     return s.substr(start, ans);
 }
 
-int lengthOfLongestSubstring(string s)
-{
-    int n = s.length();
-    unordered_map<char, int> map;
-    int i = 0;
-    int res = 0;
-    for (int j = 0; j < n; j++)
-    {
-        i = max(i, map[s[j]] + 1);
-        res = max(res, j - i + 1);
-        map[s[j]] = j;
-    }
-    return res;
-}
+// int lengthOfLongestSubstring(string s)
+// {
+//     int n = s.length();
+//     unordered_map<char, int> map;
+//     int i = 0;
+//     int res = 0;
+//     for (int j = 0; j < n; j++)
+//     {
+//         i = max(i, map[s[j]] + 1);
+//         res = max(res, j - i + 1);
+//         map[s[j]] = j;
+//     }
+//     return res;
+// }
 
 int main()
 {
     string str;
     cin >> str;
     cout << solution(str) << endl;
-    cout << lengthOfLongestSubstring(str);
     return 0;
 }
