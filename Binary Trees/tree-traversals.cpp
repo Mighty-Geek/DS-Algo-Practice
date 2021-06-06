@@ -9,6 +9,7 @@
 // Corner case 2: left and right subtrees have equal nodes T(n) = theta(n) [master method]
 
 #include <iostream>
+#include <stack>
 using namespace std;
 
 class TreeNode
@@ -39,15 +40,36 @@ TreeNode *insertNode(TreeNode *root, int val)
     }
     return root;
 }
-void inorder(TreeNode *root)
+void inorderRecursive(TreeNode *root)
 {
     if (!root)
     {
         return;
     }
-    inorder(root->left);
+    inorderRecursive(root->left);
     cout << root->data << " ";
-    inorder(root->right);
+    inorderRecursive(root->right);
+}
+
+void inorderIterative(TreeNode *root)
+{
+    stack<TreeNode *> s;
+    TreeNode *curr = root;
+    while (!s.empty() || curr != NULL)
+    {
+        if (curr != NULL)
+        {
+            s.push(curr);
+            curr = curr->left;
+        }
+        else
+        {
+            curr = s.top();
+            s.pop();
+            cout << curr->data << " ";
+            curr = curr->right;
+        }
+    }
 }
 void preorder(TreeNode *root)
 {
@@ -56,8 +78,8 @@ void preorder(TreeNode *root)
         return;
     }
     cout << root->data << " ";
-    inorder(root->left);
-    inorder(root->right);
+    preorder(root->left);
+    preorder(root->right);
 }
 void postorder(TreeNode *root)
 {
@@ -65,8 +87,8 @@ void postorder(TreeNode *root)
     {
         return;
     }
-    inorder(root->left);
-    inorder(root->right);
+    postorder(root->left);
+    postorder(root->right);
     cout << root->data << " ";
 }
 int main()
@@ -78,10 +100,16 @@ int main()
     insertNode(root, 20);
     insertNode(root, 0);
 
-    inorder(root);
+    cout << "Inorder-Iterative : \t";
+    inorderIterative(root);
     cout << endl;
+    cout << "Inorder-Recursive : \t";
+    inorderRecursive(root);
+    cout << endl;
+    cout << "Preorder : \t";
     preorder(root);
     cout << endl;
+    cout << "Postorder : \t";
     postorder(root);
     cout << endl;
 
