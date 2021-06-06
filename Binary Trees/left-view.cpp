@@ -14,6 +14,17 @@ public:
     }
 };
 
+void showq(queue<node *> gq)
+{
+    queue<node *> g = gq;
+    while (!g.empty())
+    {
+        cout << '\t' << g.front()->data;
+        g.pop();
+    }
+    cout << '\n';
+}
+
 void printLeft(node *root)
 {
     if (!root)
@@ -37,6 +48,7 @@ void printLeft(node *root)
 
             if (temp->right != NULL)
                 q.push(temp->right);
+            // showq(q);
         }
     }
 }
