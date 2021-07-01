@@ -1,3 +1,5 @@
+// cycle detection and returning first node of cycle using Hashset
+
 #include <iostream>
 #include <unordered_set>
 using namespace std;
@@ -11,7 +13,7 @@ public:
 
 void printList(Node *head)
 {
-    while (head->next != nullptr)
+    while (head->next != NULL)
     {
         cout << head->data << " -> ";
         head = head->next;
@@ -22,54 +24,52 @@ void printList(Node *head)
 void pushList(Node *head, int new_data)
 {
     Node *temp = new Node();
-    while (head->next != nullptr)
+    while (head->next != NULL)
     {
         head = head->next;
     }
     head->next = temp;
     temp->data = new_data;
-    temp->next = nullptr;
+    temp->next = NULL;
 }
 
-bool has_cycle(Node *head)
+Node *has_cycle(Node *head)
 {
     unordered_set<Node *> visited;
-    while (head != NULL)
+    Node *ptr = head;
+    while (ptr != NULL)
     {
-        if (visited.find(head) != visited.end())
-            return true;
-
-        visited.insert(head);
-        head = head->next;
+        if (visited.find(ptr) != visited.end())
+            return ptr;
+        else
+            visited.insert(ptr);
+        ptr = ptr->next;
     }
-    return false;
+    return NULL;
 }
 int main()
 {
     Node *head = new Node();
     Node *first = new Node();
+    Node *second = new Node();
 
-    head->data = 1;
+    head->data = 50;
     head->next = first;
 
-    first->data = 2;
-    first->next = nullptr;
+    first->data = 20;
+    first->next = second;
 
-    pushList(head, 2);
-    pushList(head, 3);
-    pushList(head, 3);
-    pushList(head, 3);
+    second->data = 15;
+    second->next = NULL;
+
     pushList(head, 4);
+    pushList(head, 10);
+    head->next->next->next->next->next = head->next->next;
 
-    bool res = has_cycle(head);
-
-    if (res)
-    {
-        cout << "1" << endl;
-    }
+    Node *res = has_cycle(head);
+    if (res != NULL)
+        cout << res->data << endl;
     else
-    {
-        cout << "0" << endl;
-    }
+        cout << "Cycle not found!" << endl;
     return 0;
 }
