@@ -2,6 +2,9 @@
 #include <vector>
 using namespace std;
 
+// variation 1: 3 colours (R, B, G)
+// variation 2: k colours
+
 // 1. recursive: Time complexity: O(3^n)
 
 // 2. dp: Time complexity: O(n)
