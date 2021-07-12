@@ -25,8 +25,8 @@ long paintFence(int n, int k)
     long last_diff = k * (k - 1);
     for (int i = 2; i < n + 1; i++)
     {
-        int new_last_same = last_diff;
-        int new_last_diff = (last_same + last_diff) * (k - 1);
+        long new_last_same = last_diff;
+        long new_last_diff = (last_same + last_diff) * (k - 1);
 
         last_same = new_last_same;
         last_diff = new_last_diff;
