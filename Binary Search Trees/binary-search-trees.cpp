@@ -173,6 +173,7 @@ void targetSumBST(Node *root, Node *node, int target)
             cout << node->data << " " << comp << endl;
         }
     }
+    targetSumBST(root, node->right, target);
 }
 int main()
 {
