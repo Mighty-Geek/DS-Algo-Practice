@@ -371,7 +371,7 @@ int main()
     // printSingleChildNodes(root);
     // tiltBT(root);
     // cout << tilt << endl;
-    // BST_Pair *bp = isTreeBST(root);
-    // cout << boolalpha << bp->isBST;
+    BST_Pair *bp = isTreeBST(root);
+    cout << boolalpha << bp->isBST;
     return 0;
 }
