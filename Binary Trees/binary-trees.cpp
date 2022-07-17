@@ -38,6 +38,15 @@ public:
     int mn;
     int mx;
 };
+class MaxBST
+{
+public:
+    bool isBST;
+    int mx;
+    int mn;
+    Node *mxBSTroot;
+    int mxBSTsize;
+};
 void display(Node *root)
 {
     if (root == NULL)
@@ -340,6 +349,62 @@ BST_Pair *isTreeBST(Node *node)
 
     return mp;
 }
+bool isBal = true;
+int isBalanced(Node *node)
+{
+    if (node == NULL)
+        return 0;
+    int lh = isBalanced(node->left);
+    int rh = isBalanced(node->right);
+
+    int diff = abs(lh - rh);
+    if (diff > 1)
+    {
+        isBal = false;
+    }
+
+    int th = (lh > rh) ? lh : rh;
+    return th + 1;
+}
+MaxBST *findMaxBST(Node *node)
+{
+    if (node == NULL)
+    {
+        MaxBST *bp = new MaxBST();
+        bp->isBST = true;
+        bp->mn = INT_MAX;
+        bp->mx = INT_MIN;
+        bp->mxBSTroot = NULL;
+        bp->mxBSTsize = 0;
+        return bp;
+    }
+
+    MaxBST *lst = findMaxBST(node->left);
+    MaxBST *rst = findMaxBST(node->right);
+
+    MaxBST *mp = new MaxBST();
+    mp->isBST = lst->isBST && rst->isBST && (node->data >= lst->mx && node->data <= rst->mn);
+    mp->mn = lst->mn < rst->mn ? lst->mn : rst->mn;
+    mp->mx = lst->mx > rst->mx ? lst->mx : rst->mx;
+
+    if (mp->isBST)
+    {
+        mp->mxBSTroot = node;
+        mp->mxBSTsize = lst->mxBSTsize + rst->mxBSTsize + 1;
+    }
+    else if (lst->mxBSTsize > rst->mxBSTsize)
+    {
+        mp->mxBSTroot = lst->mxBSTroot;
+        mp->mxBSTsize = lst->mxBSTsize;
+    }
+    else
+    {
+        mp->mxBSTroot = rst->mxBSTroot;
+        mp->mxBSTsize = rst->mxBSTsize;
+    }
+
+    return mp;
+}
 int main()
 {
     Node *root = new Node(50);
@@ -371,7 +436,11 @@ int main()
     // printSingleChildNodes(root);
     // tiltBT(root);
     // cout << tilt << endl;
-    BST_Pair *bp = isTreeBST(root);
-    cout << boolalpha << bp->isBST;
+    // BST_Pair *bp = isTreeBST(root);
+    // cout << boolalpha << bp->isBST;
+    // isBalanced(root);
+    // cout << boolalpha << isBal;
+    MaxBST *res = findMaxBST(root);
+    cout << res->mxBSTroot->data << " @ " << res->mxBSTsize;
     return 0;
 }
